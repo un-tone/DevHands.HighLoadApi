@@ -1,0 +1,13 @@
+@DevHands.HighLoadApi_HostAddress = http://localhost:5229
+
+GET {{DevHands.HighLoadApi_HostAddress}}/hello/
+
+###
+
+GET {{DevHands.HighLoadApi_HostAddress}}/simulate?cpu=1000
+
+###
+
+GET {{DevHands.HighLoadApi_HostAddress}}/simulate?io=1000
+
+###
