@@ -11,36 +11,34 @@ public class SimulateController : ControllerBase
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public IActionResult Get(int? cpu, int? io)
-    {
-        if (cpu == null && io == null)
-        {
-            return BadRequest($"Invalid parameters: cpu={cpu} | io={io}");
-        }
-
-        return Ok(new
-        {
-            Cpu = MakeCpu(cpu),
-            Io = MakeIo(io)
-        });
-    }
+    public IActionResult Get(int? cpu, int? io) =>
+        cpu == null && io == null
+            ? BadRequest($"Invalid parameters: cpu={cpu} | io={io}")
+            : Ok(new
+            {
+                Cpu = MakeCpu(cpu),
+                Io = MakeIo(io)
+            });
 
     private static long? MakeCpu(int? cpu)
     {
+        var process = Process.GetCurrentProcess();
+        var startTime = process.TotalProcessorTime;
         long? cpuResult = null;
+
         if (cpu > 0)
         {
             var bytes = new byte[100];
             using var md5 = MD5.Create();
-
-            var watch = Stopwatch.StartNew();
-            while (watch.ElapsedMilliseconds < cpu)
+            TimeSpan diffTime;
+            do
             {
+                diffTime = process.TotalProcessorTime - startTime;
                 Random.Shared.NextBytes(bytes);
                 md5.ComputeHash(bytes);
-            }
+            } while (diffTime.TotalMilliseconds < cpu);
 
-            cpuResult = watch.ElapsedMilliseconds;
+            cpuResult = (long)diffTime.TotalMilliseconds;
         }
 
         return cpuResult;
