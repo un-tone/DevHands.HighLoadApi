@@ -11,3 +11,15 @@ GET {{DevHands.HighLoadApi_HostAddress}}/simulate?cpu=1000
 GET {{DevHands.HighLoadApi_HostAddress}}/simulate?io=1000
 
 ###
+
+POST {{DevHands.HighLoadApi_HostAddress}}/data
+
+###
+
+GET {{DevHands.HighLoadApi_HostAddress}}/data
+
+###
+
+GET {{DevHands.HighLoadApi_HostAddress}}/cache
+
+###

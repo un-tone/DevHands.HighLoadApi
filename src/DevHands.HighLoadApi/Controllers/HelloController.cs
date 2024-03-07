@@ -7,5 +7,6 @@ namespace DevHands.HighLoadApi.Controllers;
 public class HelloController : ControllerBase
 {
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public string Get() => "Hello, World!";
 }
