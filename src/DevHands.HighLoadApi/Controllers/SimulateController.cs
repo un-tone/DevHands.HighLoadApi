@@ -23,7 +23,7 @@ public class SimulateController : ControllerBase
     private static long? MakeCpu(int? cpu)
     {
         var process = Process.GetCurrentProcess();
-        var startTime = process.TotalProcessorTime;
+        var startTime = process.UserProcessorTime;
         long? cpuResult = null;
 
         if (cpu > 0)
@@ -33,7 +33,7 @@ public class SimulateController : ControllerBase
             TimeSpan diffTime;
             do
             {
-                diffTime = process.TotalProcessorTime - startTime;
+                diffTime = process.UserProcessorTime - startTime;
                 Random.Shared.NextBytes(bytes);
                 md5.ComputeHash(bytes);
             } while (diffTime.TotalMilliseconds < cpu);
