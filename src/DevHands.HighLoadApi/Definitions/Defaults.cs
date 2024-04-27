@@ -2,6 +2,6 @@
 
 public static class Defaults
 {
-    public static int DataItemsStartId => 1001;
-    public static int DataItemsCount => 100;
+    public static int DataItemsStartId => 10001;
+    public static int DataItemsCount => 1000;
 }
